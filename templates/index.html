@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <title>APP</title>
+</head>
+<body>
+  <!-- <div class="container"> -->
+
+    <nav class="navbar bg-light ">
+        <div class="container-fluid">
+          <a class="navbar-brand">sAIgn</a>
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>
+    </nav>
+    <div class="d-flex justify-content-center align-items-center" style="height: 38rem;">
+      <div class="contenido text-center" style="width: 50%;">
+        <span class="sAIgn fs-3" style="color: #2e97b7;">sAIgn</span>
+        <h2>Lenguaje de Señas</h2>
+        <div class=" text-center">
+            <h3>Especialista en reconocimiento automatico de lenguaje de señas mediante Inteligencia Artificial</h3>
+        </div>
+          <input type="button" class="btn btn-outline-primary" value="Comencemos">
+        <div class="container">
+          <input class="form-control" type="text" value="A B C D E ... 1 2 3 4 5 ..." aria-label="readonly input example" readonly>
+        </div>
+      </div>
+      <div class="visual d-flex flex-column justify-content-center " style="width: 50%;">
+        <h3 class="mt-5">Live Streaming</h3>
+        <img src="{{ url_for('video_feed') }}" width="100%">
+      </div>
+      </div>
+    </div>
+  <!-- </div> -->
+
+  <footer class="bg-dark d-flex justify-content-center align-items-center" style="color: white; height: 5rem;">
+    <h3>Por estudiantes de la Universidad de las Fuerzas Armadas ESPE</h3>
+  </footer>
+    
+</body>
+</html>
