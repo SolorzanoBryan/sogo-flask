@@ -47,39 +47,40 @@ def gen_frames():
                 frameCapture = frame[y-offset:y + h + offset, x - offset:x + w + offset]
                 # cv2.imshow("ImageCap", frameCapture)
                 
-                frameShape = frameCapture.shape
-                
-                aspectRatio = h / w
-                
-                if(aspectRatio > 1):
-                    k = imgSize/h
-                    wCal = math.ceil(k*w)
-                    imgResize = cv2.resize(frameCapture, (wCal, imgSize))
-                    imgResizeShape = imgResize.shape
-                    wGap = math.ceil((imgSize-wCal) / 2)
-                    frameWhite[: , wGap:wCal+wGap, :] = imgResize
-                    # frameWhite[0: imgResizeShape[0], 0: imgResizeShape[1]] = imgResize
-                    prediction, index = Classifier.getPrediction(frameWhite, draw=False)
-                    print(prediction, index)
+                if frameCapture is not None and frameCapture.any():
+                    frameShape = frameCapture.shape
                     
-                else:
-                    k = imgSize / w
-                    hCal = math.ceil(k*h)
-                    imgResize = cv2.resize(frameCapture, (imgSize, hCal))
-                    imgResizeShape = imgResize.shape
-                    hGap = math.ceil((imgSize-hCal) / 2)
-                    frameWhite[hGap:hCal + hGap , :] = imgResize
-                    prediction, index = Classifier.getPrediction(frameWhite, draw=False)
+                    aspectRatio = h / w
                     
-                cv2.putText(frame, labels[index], (x, y - 50), cv2.FONT_HERSHEY_COMPLEX, 2, (0, 255, 255), 2)
-                
-                cv2.imshow("ImageW", frameWhite)
-                key = cv2.waitKey(1)
-                if key == ord("s"):
-                    counter += 1
-                    cv2.imwrite(f'{folder}/image_{time.time()}.jpg', frameWhite)
-                    print(counter)
-                # cv2.imshow("ImageC", frameCapture)
+                    if(aspectRatio > 1):
+                        k = imgSize/h
+                        wCal = math.ceil(k*w)
+                        imgResize = cv2.resize(frameCapture, (wCal, imgSize))
+                        imgResizeShape = imgResize.shape
+                        wGap = math.ceil((imgSize-wCal) / 2)
+                        frameWhite[: , wGap:wCal+wGap, :] = imgResize
+                        # frameWhite[0: imgResizeShape[0], 0: imgResizeShape[1]] = imgResize
+                        prediction, index = Classifier.getPrediction(frameWhite, draw=False)
+                        print(prediction, index)
+                        
+                    else:
+                        k = imgSize / w
+                        hCal = math.ceil(k*h)
+                        imgResize = cv2.resize(frameCapture, (imgSize, hCal))
+                        imgResizeShape = imgResize.shape
+                        hGap = math.ceil((imgSize-hCal) / 2)
+                        frameWhite[hGap:hCal + hGap , :] = imgResize
+                        prediction, index = Classifier.getPrediction(frameWhite, draw=False)
+                        
+                    cv2.putText(frame, labels[index], (x, y - 50), cv2.FONT_HERSHEY_COMPLEX, 2, (0, 255, 255), 2)
+                    
+                    cv2.imshow("ImageW", frameWhite)
+                    key = cv2.waitKey(1)
+                    if key == ord("s"):
+                        counter += 1
+                        cv2.imwrite(f'{folder}/image_{time.time()}.jpg', frameWhite)
+                        print(counter)
+                    # cv2.imshow("ImageC", frameCapture)
             
         # print('HOLA')
         # cv2.imshow("Image", frame)
@@ -90,8 +91,6 @@ def gen_frames():
         
         yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-        
-        
         
 @app.route('/')
 def index():
